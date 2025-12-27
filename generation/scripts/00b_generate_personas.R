@@ -5,7 +5,7 @@ library(dplyr)
 library(stringr)
 
 # Load the data
-gss2024 <- readRDS("data/gss2024_dellaposta_extract.rds")
+gss2024 <- readRDS("../data/gss2024_dellaposta_extract.rds")
 
 # Define natural language mappings for each variable
 # Based on GSS codebook
@@ -293,12 +293,12 @@ cat("============================================\n\n")
 personas <- generate_all_personas(gss2024)
 
 # Save results
-saveRDS(personas, "data/gss2024_personas.rds")
-write.csv(personas, "data/gss2024_personas.csv", row.names = FALSE)
+saveRDS(personas, "../data/gss2024_personas.rds")
+write.csv(personas, "../data/gss2024_personas.csv", row.names = FALSE)
 
 cat("\nPersonas saved to:\n")
-cat("  - /data/gss2024_personas.rds\n")
-cat("  - /data/gss2024_personas.csv\n\n")
+cat("  - ../data/gss2024_personas.rds\n")
+cat("  - ../data/gss2024_personas.csv\n\n")
 
 # Show examples
 cat("Example personas:\n")

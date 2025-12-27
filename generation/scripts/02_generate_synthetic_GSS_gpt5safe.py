@@ -40,7 +40,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Configuration
 SCRIPT_DIR = Path(__file__).parent
-PROJECT_DIR = SCRIPT_DIR
+PROJECT_DIR = SCRIPT_DIR.parent  # generation/ directory (one level up from scripts/)
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 # === COMPREHENSIVE GSS QUESTIONS ===

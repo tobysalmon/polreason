@@ -34,7 +34,7 @@ cat("=", rep("=", 68), "\n\n", sep="")
 
 # Load GSS cumulative data (1972-2024)
 cat("Loading GSS cumulative data...\n")
-gss_full <- read_dta("data/gss7224_r1.dta")
+gss_full <- read_dta("../data/gss7224_r1.dta")
 
 # Convert to data frame and strip Stata labels
 gss_full <- as.data.frame(gss_full)
@@ -137,7 +137,7 @@ if ("income16" %in% names(gss_year_extract) && !"income" %in% names(gss_year_ext
 }
 
 # Save as RDS
-output_file <- paste0("data/gss", year, "_dellaposta_extract.rds")
+output_file <- paste0("../data/gss", year, "_dellaposta_extract.rds")
 saveRDS(gss_year_extract, file = output_file)
 
 cat("Data saved to:", output_file, "\n")
@@ -160,7 +160,7 @@ cat("\n\nBottom 10 variables by response rate:\n")
 print(tail(summary_df, 10))
 
 # Save summary
-summary_file <- paste0("data/gss", year, "_variable_summary.csv")
+summary_file <- paste0("../data/gss", year, "_variable_summary.csv")
 write.csv(summary_df, summary_file, row.names = FALSE)
 cat("\nVariable summary saved to:", summary_file, "\n")
 

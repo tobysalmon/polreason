@@ -127,18 +127,25 @@ To create new synthetic survey responses from LLMs:
 #### Step 1: Create GSS Extract (requires GSS data file)
 
 ```bash
-cd generation/scripts/
+# Navigate to the generation scripts directory
+cd generation/scripts
 
 # Extract 2024 data
 Rscript 00a_create_gss_extract_multiyear.R --year 2024
 
 # Generate natural language personas
 Rscript 00b_generate_personas.R
+
+# Return to project root
+cd ../..
 ```
 
 #### Step 2: Query LLMs
 
 ```bash
+# Navigate to the generation scripts directory (if not already there)
+cd generation/scripts
+
 # Set your OpenRouter API key
 export OPENROUTER_API_KEY="your-key-here"
 
@@ -147,6 +154,9 @@ python 01_generate_synthetic_GSS.py --year 2024 --all-models --personas 1000
 
 # Or query specific models
 python 01_generate_synthetic_GSS.py --year 2024 --models "anthropic/claude-sonnet-4.5,openai/gpt-5" --personas 1000
+
+# Return to project root
+cd ../..
 ```
 
 See `python 01_generate_synthetic_GSS.py --help` for all options.
@@ -154,7 +164,7 @@ See `python 01_generate_synthetic_GSS.py --help` for all options.
 #### Step 3: Run Analysis
 
 ```bash
-cd ../../  # Return to polreason root
+# From polreason root directory
 Rscript analysis/scripts/master.R
 ```
 
