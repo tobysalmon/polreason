@@ -344,15 +344,16 @@ create_saturn_plot <- function(
     default = 0.7
   )]
 
+  # Base alpha values for LLMs (very transparent to highlight GSS)
   ellipse_dt[, alpha := fcase(
-    quantile == "Q90", 0.9,
-    quantile == "Q75", 0.7,
-    quantile == "Q50", 0.5,
-    quantile == "Q25", 0.3,
-    default = 0.5
+    quantile == "Q90", 0.4,
+    quantile == "Q75", 0.3,
+    quantile == "Q50", 0.2,
+    quantile == "Q25", 0.15,
+    default = 0.25
   )]
 
-  # GSS gets full opacity regardless of quantile
+  # GSS gets full opacity regardless of quantile (stands out boldly)
   ellipse_dt[is_gss == TRUE, alpha := 1.0]
   ellipse_dt[is_gss == TRUE, lwd := lwd * 1.5]
 
