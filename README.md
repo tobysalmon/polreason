@@ -37,7 +37,10 @@ polreason/
 │   │   ├── 0.config.R                          # Configuration and helpers
 │   │   ├── 1.data_shaper.R                     # Data preparation
 │   │   ├── 2.polychor_bootstrap.R              # Bootstrap analysis
-│   │   └── v*.R                                # Visualization scripts
+│   │   ├── v.common_utils.R                    # Shared visualization utilities
+│   │   ├── v1_a.mvn_plot.R                     # Multivariate normal scatter plots
+│   │   ├── v1_b.saturn_plot.R                  # Saturn plots (Option C highlighting)
+│   │   └── v2*.R, v3*.R                        # Additional visualization scripts
 │   ├── output/             # Model results (31 directories)
 │   │   ├── gss-2024/                           # Human GSS baseline
 │   │   ├── anthropic_claude-sonnet-4.5-2024/   # Example model results
@@ -180,6 +183,14 @@ The analysis produces several key metrics of political constraint:
 4. **Cohen's Kappa**: Agreement between different runs of the same persona
 
 ### Visualizations
+
+- **Saturn plots** (`v1_b.saturn_plot.R`): Publication-ready visualization comparing LLM constraint to human (GSS) baseline using bivariate normal contours
+  - Shows multiple quantiles (Q25, Q50, Q75, Q90) of absolute correlations across all belief pairs
+  - Implements "Option C" highlighting: only models with significant constraint difference (Δ ≥ 0.10) vs GSS are colored
+  - Non-highlighted LLMs shown as transparent gray "spaghetti" for context
+  - GSS displayed as bold black contours for easy comparison
+  - Reference circle (ρ=0) shows independence baseline
+  - Parameters: `delta_min` (threshold), `relevant_q` (which quantiles), `top_n_per_q` (limit highlights)
 
 - **Constraint violins**: Compare constraint levels across models and education groups
 - **Polychoric correlation matrices**: Triangle plots showing pairwise belief correlations
