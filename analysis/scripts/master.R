@@ -66,8 +66,12 @@ source(file = file.path(DIR_SCRIPTS,'v.common_utils.R'))
 # Plotting draws from MVN loop
 source(file = file.path(DIR_SCRIPTS,'v1.mvn_plot.R'))
 
-# Saturn plot: Global constraint visualization via MAC
+# Saturn plot: Global constraint visualization via MAC (faceted)
 source(file = file.path(DIR_SCRIPTS,'v1_b.saturn_plot.R'))
+
+# Saturn animation: Cycling through quantiles Q95 → Q5 (optional, takes ~2-5 min)
+# Uncomment to generate animated GIF:
+# source(file = file.path(DIR_SCRIPTS,'v1_c.saturn_animation.R'))
 
 # Plot constraint statistics
 source(file = file.path(DIR_SCRIPTS,'v2_a.constraint_stats.R'))

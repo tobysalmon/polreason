@@ -39,7 +39,8 @@ polreason/
 │   │   ├── 2.polychor_bootstrap.R              # Bootstrap analysis
 │   │   ├── v.common_utils.R                    # Shared visualization utilities
 │   │   ├── v1_a.mvn_plot.R                     # Multivariate normal scatter plots
-│   │   ├── v1_b.saturn_plot.R                  # Saturn plots (Option C highlighting)
+│   │   ├── v1_b.saturn_plot.R                  # Saturn plots (faceted, Option C)
+│   │   ├── v1_c.saturn_animation.R             # Saturn animation (Q95 → Q5 GIF)
 │   │   └── v2*.R, v3*.R                        # Additional visualization scripts
 │   ├── output/             # Model results (31 directories)
 │   │   ├── gss-2024/                           # Human GSS baseline
@@ -86,6 +87,9 @@ install.packages(c(
   "ggnewscale", "irr", "haven", "dplyr",
   "stringr", "optparse"
 ))
+
+# Optional: for Saturn animation (v1_c.saturn_animation.R)
+install.packages(c("gganimate", "gifski"))
 ```
 
 ## Data Requirements
@@ -184,13 +188,21 @@ The analysis produces several key metrics of political constraint:
 
 ### Visualizations
 
-- **Saturn plots** (`v1_b.saturn_plot.R`): Publication-ready visualization comparing LLM constraint to human (GSS) baseline using bivariate normal contours
-  - Shows multiple quantiles (Q25, Q50, Q75, Q90) of absolute correlations across all belief pairs
+- **Saturn plots** (`v1_b.saturn_plot.R`): Publication-ready faceted visualization comparing LLM constraint to human (GSS) baseline
+  - Faceted layout: each quantile (Q25, Q50, Q75, Q90) shown in separate panel
   - Implements "Option C" highlighting: only models with significant constraint difference (Δ ≥ 0.10) vs GSS are colored
   - Non-highlighted LLMs shown as transparent gray "spaghetti" for context
   - GSS displayed as bold black contours for easy comparison
   - Reference circle (ρ=0) shows independence baseline
-  - Parameters: `delta_min` (threshold), `relevant_q` (which quantiles), `top_n_per_q` (limit highlights)
+  - Parameters: `delta_min` (threshold), `top_n_total` (limit highlights)
+
+- **Saturn animation** (`v1_c.saturn_animation.R`): Animated GIF cycling through quantile levels (Q95 → Q5)
+  - Shows how constraint contours evolve from tightest (Q95) to weakest (Q5) correlations
+  - 19 frames covering full quantile range in 5% increments
+  - Top-N most constrained models highlighted throughout animation
+  - Smooth transitions with cubic easing
+  - Requires: `gganimate` and `gifski` packages
+  - Optional in `master.R` (uncomment to generate, takes 2-5 minutes)
 
 - **Constraint violins**: Compare constraint levels across models and education groups
 - **Polychoric correlation matrices**: Triangle plots showing pairwise belief correlations
