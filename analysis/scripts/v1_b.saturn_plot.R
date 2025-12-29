@@ -54,7 +54,7 @@ compute_correlation_quantiles <- function(corr_list, probs = c(0.25, 0.5, 0.75, 
   }
   
   data.frame(
-    quantile   = paste0("Q", probs * 100),
+    quantile   = paste0("Q", round(probs * 100)),
     prob       = probs,
     median_rho = apply(qmat, 2, median,   na.rm = TRUE),
     q025       = apply(qmat, 2, quantile, probs = 0.025, na.rm = TRUE),
@@ -211,7 +211,7 @@ create_saturn_plot <- function(
   ellipse_dt[, rater := factor(rater, levels = rater_order)]
   
   # Quantile ordering (highest first)
-  quantile_levels <- paste0("Q", sort(quantiles * 100, decreasing = TRUE))
+  quantile_levels <- paste0("Q", round(sort(quantiles * 100, decreasing = TRUE)))
   ellipse_dt[, quantile := factor(quantile, levels = quantile_levels)]
   
   # Path grouping
@@ -500,7 +500,7 @@ create_saturn_facet_grid <- function(
   ellipse_dt[, group_id := paste(rater, quantile, sep = "_")]
 
   # Order quantiles for facets (Q95 → Q5)
-  quantile_levels <- paste0("Q", quantile_seq * 100)
+  quantile_levels <- paste0("Q", round(quantile_seq * 100))
   ellipse_dt[, quantile := factor(quantile, levels = quantile_levels)]
 
   # Separate GSS and LLMs
@@ -632,16 +632,16 @@ if (exists("BASE_OUT_DIR") && exists("BASE_VIZ_DIR") && exists("YEAR")) {
 
   # Optional: Facet grid overview (Q95 → Q5) - experimental, minimal design
   # Uncomment to generate large facet grid showing full quantile range:
-  # saturn_facet_grid <- create_saturn_facet_grid(
-  #   base_out_dir   = BASE_OUT_DIR,
-  #   base_viz_dir   = BASE_VIZ_DIR,
-  #   year           = YEAR,
-  #   quantile_seq   = seq(0.95, 0.05, by = -0.05),  # 19 quantiles
-  #   facet_ncol     = 5,  # 5 columns, 4 rows
-  #   llm_color      = "steelblue",
-  #   llm_alpha      = 0.3,
-  #   save_pdf       = TRUE
-  # )
+  saturn_facet_grid <- create_saturn_facet_grid(
+    base_out_dir   = BASE_OUT_DIR,
+    base_viz_dir   = BASE_VIZ_DIR,
+    year           = YEAR,
+    quantile_seq   = seq(0.95, 0.05, by = -0.05),  # 19 quantiles
+    facet_ncol     = 5,  # 5 columns, 4 rows
+    llm_color      = "steelblue",
+    llm_alpha      = 0.3,
+    save_pdf       = TRUE
+  )
 
 } else {
   message("BASE_OUT_DIR, BASE_VIZ_DIR, and YEAR must be defined to run.")
