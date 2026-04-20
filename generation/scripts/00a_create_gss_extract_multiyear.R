@@ -34,7 +34,7 @@ cat("=", rep("=", 68), "\n\n", sep="")
 
 # Load GSS cumulative data (1972-2024)
 cat("Loading GSS cumulative data...\n")
-gss_full <- read_dta("../data/gss7224_r1.dta")
+gss_full <- read_dta("../data/gss7224_r3.dta")
 
 # Convert to data frame and strip Stata labels
 gss_full <- as.data.frame(gss_full)
